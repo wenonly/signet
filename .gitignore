@@ -24,3 +24,4 @@ coverage/
 
 tsconfig.tsbuildinfo
 .DS_Store
+.codegraph/
