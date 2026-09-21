@@ -1,7 +1,7 @@
 {
   "layout": {
     "blocked": "Only super admin can access this app.",
-    "brand": "Melody Auth",
+    "brand": "Signet",
     "logout": "Logout",
     "users": "Users",
     "userAttributes": "User Attributes",
