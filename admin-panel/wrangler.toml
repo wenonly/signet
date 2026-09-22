@@ -1,16 +1,17 @@
-name = "signet-admin-panel"
+name = "signet-admin-panel" # [signet] was melody-auth-admin-panel
 main = ".open-next/worker.js"
 compatibility_date = "2024-09-23"
 compatibility_flags = ["nodejs_compat"]
-workers_dev = false
+workers_dev = false # [signet] custom domain only
 
+# [signet] custom domain binding
 routes = [
   { pattern = "admin.signet.wenonly.cn", custom_domain = true }
 ]
 
 assets = { directory = ".open-next/assets", binding = "ASSETS" }
 
-[vars]
+[vars] # [signet] deployment wiring (SERVER_CLIENT_SECRET is a worker secret)
 NEXT_PUBLIC_SERVER_URI = "https://signet.wenonly.cn"
 NEXT_PUBLIC_CLIENT_ID = "FA4da496a346A0309A30b8d161F7732b2d702deaf8D0CC0Fddeb93764afea6BA"
 NEXT_PUBLIC_SUPPORTED_LOCALES = "zh,en"
