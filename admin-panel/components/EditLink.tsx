@@ -12,7 +12,7 @@ const EditLink = ({
 }) => {
   return (
     <Button
-      className='w-10'
+      className='h-8 w-8 p-0'
       asChild
       variant='outline'
       data-testid='editLink'

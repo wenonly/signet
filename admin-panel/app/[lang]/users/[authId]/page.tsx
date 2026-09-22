@@ -1123,7 +1123,7 @@ const Page = () => {
       )}
       {enableConsent && (
         <>
-          <h2 className='font-semibold mt-8'>{t('users.consented')}</h2>
+          <h2 className='text-[15px] font-semibold mt-8'>{t('users.consented')}</h2>
           <section className='flex items-center gap-4 mt-4'>
             {consentedApps.map((consented) => (
               <Card key={consented.appId}>
@@ -1151,7 +1151,7 @@ const Page = () => {
           </section>
         </>
       )}
-      <h2 className='font-semibold mt-8'>{t('users.activeSessions')}</h2>
+      <h2 className='text-[15px] font-semibold mt-8'>{t('users.activeSessions')}</h2>
       <p className='mt-1 text-sm text-muted-foreground'>{t('users.activeSessionsNote')}</p>
       <section className='mt-4'>
         {activeSessions.length > 0

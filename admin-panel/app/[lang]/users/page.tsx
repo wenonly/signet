@@ -27,8 +27,6 @@ const Page = () => {
         page={{ label: t('users.title') }}
         action={canWriteUser && (
           <Button
-            variant='outline'
-            size='sm'
             data-testid='inviteUserBtn'
             onClick={() => setShowInviteModal(true)}
           >

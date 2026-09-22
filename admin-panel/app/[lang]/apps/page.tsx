@@ -7,7 +7,7 @@ import {
 } from 'components/ui/table'
 import EntityStatusLabel from 'components/EntityStatusLabel'
 import {
-  routeTool, accessTool,
+  routeTool, accessTool, typeTool,
 } from 'tools'
 import EditLink from 'components/EditLink'
 import CreateButton from 'components/CreateButton'
@@ -66,8 +66,9 @@ const Page = () => {
           <TableRow>
             <TableHead>{t('apps.name')}</TableHead>
             <TableHead>{t('apps.clientId')}</TableHead>
-            <TableHead>{t('apps.status')}</TableHead>
             <TableHead>{t('apps.type')}</TableHead>
+            <TableHead>{t('apps.status')}</TableHead>
+            <TableHead>{t('apps.redirectUris')}</TableHead>
             <TableHead />
           </TableRow>
         </TableHeader>
@@ -98,13 +99,18 @@ const Page = () => {
             <TableRow
               key={app.id}
               data-testid='appRow'>
-              <TableCell>{app.name}</TableCell>
-              <TableCell>{app.clientId}</TableCell>
+              <TableCell className='text-foreground'>{app.name}</TableCell>
+              <TableCell className='font-mono text-xs'>{app.clientId}</TableCell>
+              <TableCell>
+                <ClientTypeLabel type={app.type} />
+              </TableCell>
               <TableCell>
                 <EntityStatusLabel isEnabled={app.isActive} />
               </TableCell>
-              <TableCell>
-                <ClientTypeLabel type={app.type} />
+              <TableCell className='max-w-80 truncate'>
+                {app.type === typeTool.ClientType.SPA
+                  ? app.redirectUris.join(', ')
+                  : '-'}
               </TableCell>
               <TableCell>
                 <EditLink

@@ -172,7 +172,8 @@
     "requireSmsMfa": "要求短信 MFA",
     "allowEmailMfaAsBackup": "允许邮箱 MFA 作为备用",
     "appLevelMfaDescription": "无论以下设置如何，用户若已自行注册某项 MFA 方式，登录此应用时仍需完成该 MFA 验证。",
-    "note": "注：spa 类型为公开客户端（无 secret，使用 PKCE，前端持有 client_id）；s2s 类型签发 client_id + client secret，用于服务间 client_credentials 换取访问令牌。"
+    "note": "注：spa 类型为公开客户端（无 secret，使用 PKCE，前端持有 client_id）；s2s 类型签发 client_id + client secret，用于服务间 client_credentials 换取访问令牌。",
+    "basicInfo": "基本属性"
   },
   "users": {
     "title": "用户",
@@ -260,7 +261,8 @@
     "inviteRedirectApp": "跳转应用",
     "inviteRedirectUrl": "跳转地址",
     "inviteRedirectDesc": "可选：选择一个应用及其某个重定向地址。受邀请用户设置密码后，将被引导至该地址直接登录。",
-    "noApp": "无应用"
+    "noApp": "无应用",
+    "userCount": "共 {count} 位用户"
   },
   "userAttributes": {
     "title": "用户属性",
@@ -289,7 +291,8 @@
     "status": "状态",
     "new": "创建角色",
     "users": "拥有此角色的用户",
-    "note": "注：本系统角色不包含菜单/权限树。角色作为全局标签写入 access token 与 id token 的 roles 字段，具体权限由各下游应用与管理面板的访问矩阵解释。"
+    "note": "注：本系统角色不包含菜单/权限树。角色作为全局标签写入 access token 与 id token 的 roles 字段，具体权限由各下游应用与管理面板的访问矩阵解释。",
+    "marker": "标记"
   },
   "saml": {
     "title": "SAML",

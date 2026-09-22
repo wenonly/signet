@@ -53,8 +53,8 @@ const Page = () => {
         <TableHeader className='max-md:hidden'>
           <TableRow>
             <TableHead>{t('scopes.name')}</TableHead>
-            <TableHead>{t('common.note')}</TableHead>
             <TableHead>{t('scopes.type')}</TableHead>
+            <TableHead>{t('common.note')}</TableHead>
             <TableHead />
           </TableRow>
         </TableHeader>
@@ -85,17 +85,17 @@ const Page = () => {
             <TableRow
               data-testid='scopeRow'
               key={scope.id}>
-              <TableCell>
+              <TableCell className='text-foreground'>
                 <div className='flex items-center gap-2'>
                   {scope.name}
                   {dataTool.isSystemScope(scope.name) && <SystemLabel />}
                 </div>
               </TableCell>
               <TableCell>
-                {scope.note}
+                <ClientTypeLabel type={scope.type} />
               </TableCell>
               <TableCell>
-                <ClientTypeLabel type={scope.type} />
+                {scope.note}
               </TableCell>
               <TableCell>
                 <EditLink

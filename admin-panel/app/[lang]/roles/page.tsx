@@ -59,6 +59,7 @@ const Page = () => {
         <TableHeader className='max-md:hidden'>
           <TableRow>
             <TableHead>{t('roles.name')}</TableHead>
+            <TableHead>{t('roles.marker')}</TableHead>
             <TableHead>{t('common.note')}</TableHead>
             <TableHead />
           </TableRow>
@@ -90,11 +91,11 @@ const Page = () => {
             <TableRow
               key={role.id}
               data-testid='roleRow'>
+              <TableCell className='text-foreground'>
+                {role.name}
+              </TableCell>
               <TableCell>
-                <div className='flex items-center gap-2'>
-                  {role.name}
-                  {dataTool.isSystemRole(role.name) && <SystemLabel />}
-                </div>
+                {dataTool.isSystemRole(role.name) && <SystemLabel />}
               </TableCell>
               <TableCell>
                 {role.note}

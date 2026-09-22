@@ -27,6 +27,7 @@ import {
   usePutApiV1AppsByIdMutation,
 } from 'services/auth/api'
 import Breadcrumb from 'components/Breadcrumb'
+import PageTitle from 'components/PageTitle'
 import LoadingPage from 'components/LoadingPage'
 import { Label } from 'components/ui/label'
 import RequiredProperty from 'components/RequiredProperty'
@@ -120,15 +121,18 @@ const Page = () => {
           label: t('apps.title'),
         }}
       />
-      <section>
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead className='max-md:w-24 md:w-48'>{t('common.property')}</TableHead>
-              <TableHead>{t('common.value')}</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody className='divide-y break-all'>
+      {/* [signet] fork restyle: two-column card layout per design board */}
+      <section className='grid items-start gap-6 lg:grid-cols-2'>
+        <div className='flex flex-col gap-6'>
+          <PageTitle title={t('apps.basicInfo')} />
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead className='max-md:w-24 md:w-40'>{t('common.property')}</TableHead>
+                <TableHead>{t('common.value')}</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody className='divide-y break-all'>
             <TableRow>
               <TableCell>
                 <RequiredProperty title={t('apps.name')} />
@@ -188,135 +192,6 @@ const Page = () => {
               </TableCell>
             </TableRow>
             <TableRow>
-              <TableCell>
-                <RequiredProperty title={t('apps.scopes')} />
-              </TableCell>
-              <TableCell>
-                <ScopesEditor
-                  disabled={!canWriteApp}
-                  scopes={availableScopes}
-                  value={values.scopes}
-                  onToggleScope={handleToggleAppScope}
-                />
-                <FieldError error={errors.scopes} />
-              </TableCell>
-            </TableRow>
-            {app.type === typeTool.ClientType.SPA && (
-              <TableRow>
-                <TableCell>{t('apps.redirectUris')}</TableCell>
-                <TableCell>
-                  <RedirectUriEditor
-                    disabled={!canWriteApp}
-                    redirectUris={values.redirectUris}
-                    onChange={(uris) => onChange(
-                      'redirectUris',
-                      uris,
-                    )}
-                  />
-                </TableCell>
-              </TableRow>
-            )}
-            <TableRow>
-              <TableCell>{t('apps.appLevelMfa')}</TableCell>
-              <TableCell className='flex flex-col gap-4'>
-                <div className='flex items-center gap-2'>
-                  <Switch
-                    id='mfa-useSystem'
-                    data-testid='mfa-useSystem'
-                    checked={values.useSystemMfaConfig}
-                    disabled={!canWriteApp}
-                    onClick={() => onChange(
-                      'useSystemMfaConfig',
-                      !values.useSystemMfaConfig,
-                    )}
-                  />
-                  <Label
-                    htmlFor='mfa-useSystem'
-                    className='flex'
-                  >
-                    {t('apps.useSystemMfaConfig')}
-                  </Label>
-                </div>
-                {!values.useSystemMfaConfig && (
-                  <>
-                    <p className='text-sm'>{t('apps.appLevelMfaDescription')}</p>
-                    <div className='flex items-center gap-2'>
-                      <Switch
-                        id='mfa-requireEmail'
-                        data-testid='mfa-requireEmail'
-                        checked={values.requireEmailMfa}
-                        disabled={!canWriteApp}
-                        onClick={() => onChange(
-                          'requireEmailMfa',
-                          !values.requireEmailMfa,
-                        )}
-                      />
-                      <Label
-                        htmlFor='mfa-requireEmail'
-                        className='flex'
-                      >
-                        {t('apps.requireEmailMfa')}
-                      </Label>
-                    </div>
-                    <div className='flex items-center gap-2'>
-                      <Switch
-                        id='mfa-requireOtp'
-                        data-testid='mfa-requireOtp'
-                        checked={values.requireOtpMfa}
-                        disabled={!canWriteApp}
-                        onClick={() => onChange(
-                          'requireOtpMfa',
-                          !values.requireOtpMfa,
-                        )}
-                      />
-                      <Label
-                        htmlFor='mfa-requireOtp'
-                        className='flex'
-                      >
-                        {t('apps.requireOtpMfa')}
-                      </Label>
-                    </div>
-                    <div className='flex items-center gap-2'>
-                      <Switch
-                        id='mfa-requireSms'
-                        data-testid='mfa-requireSms'
-                        checked={values.requireSmsMfa}
-                        disabled={!canWriteApp}
-                        onClick={() => onChange(
-                          'requireSmsMfa',
-                          !values.requireSmsMfa,
-                        )}
-                      />
-                      <Label
-                        htmlFor='mfa-requireSms'
-                        className='flex'
-                      >
-                        {t('apps.requireSmsMfa')}
-                      </Label>
-                    </div>
-                    <div className='flex items-center gap-2'>
-                      <Switch
-                        id='mfa-allowEmailMfaAsBackup'
-                        data-testid='mfa-allowEmailMfaAsBackup'
-                        checked={values.allowEmailMfaAsBackup}
-                        disabled={!canWriteApp}
-                        onClick={() => onChange(
-                          'allowEmailMfaAsBackup',
-                          !values.allowEmailMfaAsBackup,
-                        )}
-                      />
-                      <Label
-                        htmlFor='mfa-allowEmailMfaAsBackup'
-                        className='flex'
-                      >
-                        {t('apps.allowEmailMfaAsBackup')}
-                      </Label>
-                    </div>
-                  </>
-                )}
-              </TableCell>
-            </TableRow>
-            <TableRow>
               <TableCell>{t('common.createdAt')}</TableCell>
               <TableCell>{app.createdAt} UTC</TableCell>
             </TableRow>
@@ -326,6 +201,130 @@ const Page = () => {
             </TableRow>
           </TableBody>
         </Table>
+        {app.type === typeTool.ClientType.SPA && (
+          <section className='flex flex-col gap-3 rounded-[10px] border bg-card p-5'>
+            <h2 className='text-sm font-semibold leading-none'>{t('apps.redirectUris')}</h2>
+            <RedirectUriEditor
+              disabled={!canWriteApp}
+              redirectUris={values.redirectUris}
+              onChange={(uris) => onChange(
+                'redirectUris',
+                uris,
+              )}
+            />
+          </section>
+        )}
+        </div>
+        <div className='flex flex-col gap-6'>
+          <section className='flex flex-col gap-3 rounded-[10px] border bg-card p-5'>
+            <h2 className='text-sm font-semibold leading-none'>{t('apps.scopes')}</h2>
+            <ScopesEditor
+              disabled={!canWriteApp}
+              scopes={availableScopes}
+              value={values.scopes}
+              onToggleScope={handleToggleAppScope}
+            />
+            <FieldError error={errors.scopes} />
+          </section>
+          <section className='flex flex-col gap-3 rounded-[10px] border bg-card p-5'>
+            <h2 className='text-sm font-semibold leading-none'>{t('apps.appLevelMfa')}</h2>
+            <div className='flex items-center gap-2'>
+              <Switch
+                id='mfa-useSystem'
+                data-testid='mfa-useSystem'
+                checked={values.useSystemMfaConfig}
+                disabled={!canWriteApp}
+                onClick={() => onChange(
+                  'useSystemMfaConfig',
+                  !values.useSystemMfaConfig,
+                )}
+              />
+              <Label
+                htmlFor='mfa-useSystem'
+                className='flex'
+              >
+                {t('apps.useSystemMfaConfig')}
+              </Label>
+            </div>
+            {!values.useSystemMfaConfig && (
+              <>
+                <p className='text-xs text-zinc-400'>{t('apps.appLevelMfaDescription')}</p>
+                <div className='flex items-center gap-2'>
+                  <Switch
+                    id='mfa-requireEmail'
+                    data-testid='mfa-requireEmail'
+                    checked={values.requireEmailMfa}
+                    disabled={!canWriteApp}
+                    onClick={() => onChange(
+                      'requireEmailMfa',
+                      !values.requireEmailMfa,
+                    )}
+                  />
+                  <Label
+                    htmlFor='mfa-requireEmail'
+                    className='flex'
+                  >
+                    {t('apps.requireEmailMfa')}
+                  </Label>
+                </div>
+                <div className='flex items-center gap-2'>
+                  <Switch
+                    id='mfa-requireOtp'
+                    data-testid='mfa-requireOtp'
+                    checked={values.requireOtpMfa}
+                    disabled={!canWriteApp}
+                    onClick={() => onChange(
+                      'requireOtpMfa',
+                      !values.requireOtpMfa,
+                    )}
+                  />
+                  <Label
+                    htmlFor='mfa-requireOtp'
+                    className='flex'
+                  >
+                    {t('apps.requireOtpMfa')}
+                  </Label>
+                </div>
+                <div className='flex items-center gap-2'>
+                  <Switch
+                    id='mfa-requireSms'
+                    data-testid='mfa-requireSms'
+                    checked={values.requireSmsMfa}
+                    disabled={!canWriteApp}
+                    onClick={() => onChange(
+                      'requireSmsMfa',
+                      !values.requireSmsMfa,
+                    )}
+                  />
+                  <Label
+                    htmlFor='mfa-requireSms'
+                    className='flex'
+                  >
+                    {t('apps.requireSmsMfa')}
+                  </Label>
+                </div>
+                <div className='flex items-center gap-2'>
+                  <Switch
+                    id='mfa-allowEmailMfaAsBackup'
+                    data-testid='mfa-allowEmailMfaAsBackup'
+                    checked={values.allowEmailMfaAsBackup}
+                    disabled={!canWriteApp}
+                    onClick={() => onChange(
+                      'allowEmailMfaAsBackup',
+                      !values.allowEmailMfaAsBackup,
+                    )}
+                  />
+                  <Label
+                    htmlFor='mfa-allowEmailMfaAsBackup'
+                    className='flex'
+                  >
+                    {t('apps.allowEmailMfaAsBackup')}
+                  </Label>
+                </div>
+              </>
+            )}
+          </section>
+        </div>
       </section>
       <SubmitError />
       {canWriteApp && (

@@ -13,8 +13,7 @@ const CreateButton = ({
 
   return (
     <Button
-      variant='outline'
-      size='sm'
+      variant='default'
       data-testid={testId ?? 'createButton'}
       asChild
     >

@@ -1,13 +1,7 @@
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from 'components/ui/pagination'
+import { cn } from 'tools/style'
 
+// [signet] fork restyle: count on the left + compact page buttons on the
+// right (upstream rendered centered shadcn pagination links)
 interface ShadcnPaginationProps {
   className?: string;
   currentPage: number;
@@ -15,7 +9,11 @@ interface ShadcnPaginationProps {
   onPageChange: (page: number) => void;
   previousLabel?: string;
   nextLabel?: string;
+  count?: number;
+  countLabel?: string;
 }
+
+const btnBase = 'flex h-[30px] min-w-[30px] items-center justify-center rounded-md px-2 text-[13px] transition-colors disabled:pointer-events-none'
 
 const ShadcnPagination: React.FC<ShadcnPaginationProps> = ({
   className,
@@ -24,6 +22,8 @@ const ShadcnPagination: React.FC<ShadcnPaginationProps> = ({
   onPageChange,
   previousLabel = 'Previous',
   nextLabel = 'Next',
+  count,
+  countLabel,
 }) => {
   const generatePages = () => {
     const pages: (number | 'ellipsis')[] = []
@@ -94,60 +94,81 @@ const ShadcnPagination: React.FC<ShadcnPaginationProps> = ({
   const pages = generatePages()
 
   return (
-    <Pagination
+    <nav
       role='pagination'
-      className={className}>
-      <PaginationContent>
-        <PaginationItem>
-          <PaginationPrevious
-            title={previousLabel}
-            onClick={(e) => {
-              e.preventDefault()
-              if (currentPage > 1) {
-                onPageChange(currentPage - 1)
-              }
-            }}
-          />
-        </PaginationItem>
-
+      aria-label='pagination'
+      className={cn(
+        'flex w-full items-center justify-between gap-4',
+        className,
+      )}
+    >
+      {countLabel != null && (
+        <span className='text-[13px] text-muted-foreground/70'>
+          {countLabel}
+        </span>
+      )}
+      <div className='ml-auto flex items-center gap-2'>
+        <button
+          type='button'
+          className={cn(
+            btnBase,
+            currentPage <= 1
+              ? 'text-muted-foreground/70'
+              : 'text-foreground hover:bg-muted',
+          )}
+          disabled={currentPage <= 1}
+          onClick={() => onPageChange(currentPage - 1)}
+        >
+          {previousLabel}
+        </button>
         {pages.map((
           item, index,
         ) => {
           if (item === 'ellipsis') {
             return (
-              <PaginationItem key={`ellipsis-${index}`}>
-                <PaginationEllipsis />
-              </PaginationItem>
+              <span
+                key={`ellipsis-${index}`}
+                className='flex h-[30px] w-4 items-center justify-center text-[13px] text-muted-foreground/70'
+              >
+                …
+              </span>
             )
           }
           return (
-            <PaginationItem key={item}>
-              <PaginationLink
-                isActive={item === currentPage}
-                onClick={(e) => {
-                  e.preventDefault()
-                  onPageChange(item as number)
-                }}
-              >
-                {item}
-              </PaginationLink>
-            </PaginationItem>
+            <button
+              key={item}
+              type='button'
+              aria-current={item === currentPage ? 'page' : undefined}
+              className={cn(
+                btnBase,
+                item === currentPage
+                  ? 'bg-primary text-primary-foreground'
+                  : 'text-foreground hover:bg-muted',
+              )}
+              onClick={() => onPageChange(item as number)}
+            >
+              {item}
+            </button>
           )
         })}
-
-        <PaginationItem>
-          <PaginationNext
-            title={nextLabel}
-            onClick={(e) => {
-              e.preventDefault()
-              if (currentPage < totalPages) {
-                onPageChange(currentPage + 1)
-              }
-            }}
-          />
-        </PaginationItem>
-      </PaginationContent>
-    </Pagination>
+        <button
+          type='button'
+          className={cn(
+            btnBase,
+            currentPage >= totalPages
+              ? 'text-muted-foreground/70'
+              : 'text-foreground hover:bg-muted',
+          )}
+          disabled={currentPage >= totalPages}
+          onClick={() => onPageChange(currentPage + 1)}
+        >
+          {nextLabel}
+        </button>
+        {count != null && (
+          <span className='sr-only'>{count}</span>
+        )}
+      </div>
+    </nav>
   )
 }
 

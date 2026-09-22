@@ -10,6 +10,7 @@ import {
 } from 'components/ui/table'
 import { Alert } from 'components/ui/alert'
 import EntityStatusLabel from 'components/EntityStatusLabel'
+import UserEmailVerified from 'components/UserEmailVerified'
 import EditLink from 'components/EditLink'
 import useSignalValue from 'app/useSignalValue'
 import { configSignal } from 'signals'
@@ -106,7 +107,7 @@ const UserTable = ({
       {!loadedUsers && !isViewingAllUsers && (
         <header className='mb-6 flex items-center gap-4'>
           <Input
-            className='w-60'
+            className='w-80'
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder={t('users.search')}
@@ -126,14 +127,13 @@ const UserTable = ({
         </TableHeader>
         <TableHeader className='max-md:hidden'>
           <TableRow>
-            <TableHead>{t('users.authId')}</TableHead>
-            <TableHead>
-              {t('users.email')}
-            </TableHead>
-            <TableHead>{t('users.status')}</TableHead>
+            <TableHead>{t('users.email')}</TableHead>
             {configs.ENABLE_NAMES && (
               <TableHead>{t('users.name')}</TableHead>
             )}
+            <TableHead>{t('users.status')}</TableHead>
+            <TableHead>{t('users.emailVerified')}</TableHead>
+            <TableHead>{t('common.createdAt')}</TableHead>
             <TableHead />
           </TableRow>
         </TableHeader>
@@ -145,13 +145,13 @@ const UserTable = ({
               <TableCell>
                 <section className='flex items-center justify-between'>
                   <section className='flex flex-col gap-2'>
-                    {user.authId}
+                    {user.email ?? user.authId}
                     {user.authId === userInfo?.authId && <div className='flex'><IsSelfLabel /></div>}
-                    {user.email}
                     <EntityStatusLabel
                       isEnabled={user.isActive}
                       isInviting={user.isInviting}
                     />
+                    <UserEmailVerified user={user} />
                     {configs.ENABLE_NAMES && (
                       <p>
                         {`${user.firstName ?? ''} ${user.lastName ?? ''}`}
@@ -172,24 +172,29 @@ const UserTable = ({
             <TableRow
               key={user.id}
               data-testid='userRow'>
-              <TableCell>
+              <TableCell className='text-foreground'>
                 <div className='flex items-center gap-2'>
-                  {user.authId}
+                  {user.email ?? user.authId}
                   {user.authId === userInfo?.authId && <IsSelfLabel />}
                 </div>
-              </TableCell>
-              <TableCell>{user.email}</TableCell>
-              <TableCell>
-                <EntityStatusLabel
-                  isEnabled={user.isActive}
-                  isInviting={user.isInviting}
-                />
               </TableCell>
               {configs.ENABLE_NAMES && (
                 <TableCell>
                   {`${user.firstName ?? ''} ${user.lastName ?? ''}`}
                 </TableCell>
               )}
+              <TableCell>
+                <EntityStatusLabel
+                  isEnabled={user.isActive}
+                  isInviting={user.isInviting}
+                />
+              </TableCell>
+              <TableCell>
+                <UserEmailVerified user={user} />
+              </TableCell>
+              <TableCell>
+                {user.createdAt} UTC
+              </TableCell>
               <TableCell>
                 <EditLink
                   viewOnly={!canWriteUser}
@@ -202,7 +207,12 @@ const UserTable = ({
       </Table>}
       {!loadedUsers && totalPages > 1 && (
         <Pagination
-          className='mt-8'
+          className='mt-6'
+          count={count}
+          countLabel={t(
+            'users.userCount',
+            { count },
+          )}
           currentPage={pageNumber}
           totalPages={totalPages}
           onPageChange={handlePageChange}

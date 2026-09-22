@@ -10,7 +10,7 @@ const ConfigBooleanValue = ({ config }: { config?: boolean }) => {
     <span
       className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs ${
         config
-          ? 'bg-green-50 text-green-700 border border-green-200'
+          ? 'bg-green-50 text-green-600 border border-green-200'
           : 'bg-muted text-muted-foreground border'
       }`}
     >

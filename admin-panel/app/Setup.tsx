@@ -46,7 +46,7 @@ import { appSlice } from 'stores/app'
 import LoadingPage from 'components/LoadingPage'
 import {
   Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu,
-  SidebarMenuButton, SidebarMenuItem, SidebarProvider,
+  SidebarMenuButton, SidebarMenuItem, SidebarProvider, SidebarTrigger,
 } from 'components/ui/sidebar'
 import {
   DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem,
@@ -444,8 +444,27 @@ const LayoutSetup = ({ children } : PropsWithChildren) => {
       {
         configs
           ? (
-            <section className='w-full p-6'>
-              {children}
+            // [signet] fork restyle: topbar with user chip + scrollable
+            // zinc-50 content area (upstream rendered a plain padded section)
+            <section className='flex h-svh w-full flex-col overflow-hidden'>
+              <header className='flex h-14 shrink-0 items-center justify-between border-b px-8'>
+                <SidebarTrigger className='md:hidden scale-100' />
+                <div className='flex items-center gap-2'>
+                  <div className='flex size-7 items-center justify-center rounded-full bg-muted text-xs text-muted-foreground'>
+                    {(userInfo?.firstName || userInfo?.lastName || userInfo?.email || '?')
+                      .charAt(0)
+                      .toUpperCase()}
+                  </div>
+                  <span className='text-xs text-muted-foreground'>
+                    {userInfo?.firstName || userInfo?.lastName
+                      ? `${userInfo?.firstName ?? ''} ${userInfo?.lastName ?? ''}`.trim()
+                      : userInfo?.email}
+                  </span>
+                </div>
+              </header>
+              <main className='grow overflow-y-auto bg-zinc-50 p-8'>
+                {children}
+              </main>
             </section>
           )
           : (

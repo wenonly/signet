@@ -114,7 +114,7 @@ const InviteUserModal = ({
 
   return (
     <AlertDialog open={show}>
-      <AlertDialogContent>
+      <AlertDialogContent className='max-w-[480px] gap-[18px] rounded-xl p-7'>
         <AlertDialogHeader>
           <AlertDialogTitle>{t('users.inviteUser')}</AlertDialogTitle>
         </AlertDialogHeader>

@@ -14,7 +14,7 @@ import {
 import Breadcrumb from 'components/Breadcrumb'
 import LoadingPage from 'components/LoadingPage'
 
-const configNameClass = 'w-72 max-md:w-52'
+const configNameClass = 'w-[300px] max-md:w-52'
 
 const Page = () => {
   const t = useTranslations()
@@ -111,8 +111,9 @@ const Page = () => {
   if (!configs) return <LoadingPage />
 
   return (
-    <section>
+    <section className='flex flex-col gap-6'>
       <Breadcrumb
+        className='mb-0'
         page={{ label: t('layout.dashboard') }}
       />
       {/* [signet] fork addition: system links table (upstream rendered a plain 2-column table here) */}
@@ -120,9 +121,8 @@ const Page = () => {
       {configTypes.map((configType) => (
         <section
           key={configType.name}
-          className='mt-8 gap-6'>
+          className='flex flex-col gap-6'>
           <PageTitle
-            className='mt-8 mb-6'
             title={configType.name}
           />
           <Table className='break-all'>
@@ -131,7 +131,7 @@ const Page = () => {
                 <TableHead className={configNameClass}>{t('dashboard.configName')}</TableHead>
                 {/* [signet] fork addition: description column */}
                 <TableHead className='w-96 max-md:w-52'>{t('dashboard.configDescription')}</TableHead>
-                <TableHead>{t('dashboard.configValue')}</TableHead>
+                <TableHead className='w-[220px]'>{t('dashboard.configValue')}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>

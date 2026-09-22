@@ -88,8 +88,8 @@ const Page = () => {
       <Breadcrumb
         page={{ label: t('layout.account') }}
       />
-      <section className='flex flex-col gap-4 max-w-xl'>
-        <div className='rounded-lg border overflow-hidden'>
+      <section className='flex flex-col gap-4 max-w-[720px]'>
+        <div className='rounded-[10px] border overflow-hidden'>
           {[...actions, ...conditionalActions].map((action) => (
             <div
               key={action.policy}
@@ -98,7 +98,7 @@ const Page = () => {
               <action.Icon className='w-[18px] h-[18px] shrink-0 text-muted-foreground' />
               <div className='flex flex-col gap-0.5 grow'>
                 <span className='text-sm font-medium'>{action.title}</span>
-                <span className='text-xs text-muted-foreground'>{action.desc}</span>
+                <span className='text-xs text-zinc-400'>{action.desc}</span>
               </div>
               <Button
                 variant='outline'

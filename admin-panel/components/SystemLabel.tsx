@@ -5,7 +5,10 @@ const SystemLabel = () => {
   const t = useTranslations()
 
   return (
-    <Badge variant='secondary'>{t('common.system')}</Badge>
+    <Badge
+      variant='secondary'
+      className='rounded-md'
+    >{t('common.system')}</Badge>
   )
 }
 

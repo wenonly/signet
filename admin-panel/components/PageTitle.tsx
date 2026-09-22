@@ -10,7 +10,7 @@ const PageTitle = ({
   return (
     <h1
       className={classNames(
-        'font-semibold text-lg',
+        'text-[15px] font-semibold text-foreground',
         className,
       )}>{title}
     </h1>

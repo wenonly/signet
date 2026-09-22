@@ -47,15 +47,14 @@ const SystemLinksTable = ({ authServerUrl }: { authServerUrl: string }) => {
   return (
     <>
       <PageTitle
-        className='mb-6'
         title={t('dashboard.links')}
       />
       <Table className='break-all'>
         <TableHeader>
           <TableRow>
-            <TableHead className='w-72 max-md:w-52'>{t('dashboard.configName')}</TableHead>
+            <TableHead className='w-[300px] max-md:w-52'>{t('dashboard.configName')}</TableHead>
             <TableHead className='w-96 max-md:w-52'>{t('dashboard.configDescription')}</TableHead>
-            <TableHead>{t('dashboard.configValue')}</TableHead>
+            <TableHead className='w-[220px]'>{t('dashboard.configValue')}</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>

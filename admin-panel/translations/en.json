@@ -172,7 +172,8 @@
     "requireSmsMfa": "Require SMS MFA",
     "allowEmailMfaAsBackup": "Allow Email MFA as Backup",
     "appLevelMfaDescription": "Regardless of the settings below, users who have self‑enrolled in an MFA method will still need to complete that MFA verification when signing in to this app.",
-    "note": "Note: spa clients are public PKCE clients (no secret; the frontend holds the client_id). s2s clients are issued a client_id + client secret for client_credentials service-to-service tokens."
+    "note": "Note: spa clients are public PKCE clients (no secret; the frontend holds the client_id). s2s clients are issued a client_id + client secret for client_credentials service-to-service tokens.",
+    "basicInfo": "Basic properties"
   },
   "users": {
     "title": "Users",
@@ -260,7 +261,8 @@
     "inviteRedirectApp": "Redirect App",
     "inviteRedirectUrl": "Redirect URL",
     "inviteRedirectDesc": "Optionally select an app and one of its redirect URLs. After the invited user sets their password, they will be redirected to this URL to sign in directly.",
-    "noApp": "No app"
+    "noApp": "No app",
+    "userCount": "{count} users total"
   },
   "userAttributes": {
     "title": "User Attributes",
@@ -289,7 +291,8 @@
     "status": "Status",
     "new": "Create a role",
     "users": "Users with this role",
-    "note": "Note: roles in this system carry no menu/permission tree. A role is a global label written into the roles claim of access/ID tokens; its meaning is interpreted by each downstream app and the admin panel access matrix."
+    "note": "Note: roles in this system carry no menu/permission tree. A role is a global label written into the roles claim of access/ID tokens; its meaning is interpreted by each downstream app and the admin panel access matrix.",
+    "marker": "Badge"
   },
   "saml": {
     "title": "SAML",

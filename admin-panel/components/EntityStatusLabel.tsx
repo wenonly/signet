@@ -14,8 +14,8 @@ const EntityStatusLabel = ({
       {isInviting
         ? <Badge variant='warning'>{t('common.inviting')}</Badge>
         : isEnabled
-          ? <Badge>{t('common.active')}</Badge>
-          : <Badge variant='destructive'>{t('common.disabled')}</Badge>
+          ? <Badge variant='success'>{t('common.active')}</Badge>
+          : <Badge variant='secondary'>{t('common.disabled')}</Badge>
       }
     </div>
   )
