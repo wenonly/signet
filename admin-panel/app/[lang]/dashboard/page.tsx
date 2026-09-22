@@ -1,9 +1,10 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
-import { useMemo } from 'react'
 
 import ConfigBooleanValue from 'components/ConfigBooleanValue'
+// [signet] fork addition: system links table with descriptions and copy buttons
+import SystemLinksTable from 'components/SystemLinksTable'
 import PageTitle from 'components/PageTitle'
 import { configSignal } from 'signals'
 import useSignalValue from 'app/useSignalValue'
@@ -13,12 +14,14 @@ import {
 import Breadcrumb from 'components/Breadcrumb'
 import LoadingPage from 'components/LoadingPage'
 
-const configNameClass = 'w-96 max-md:w-60'
+const configNameClass = 'w-72 max-md:w-52'
 
 const Page = () => {
   const t = useTranslations()
 
   const configs = useSignalValue(configSignal)
+  // [signet] fork addition: config description texts (see translations dashboard.configDescriptions)
+  const configDescriptions = t.raw('dashboard.configDescriptions') as Record<string, string>
 
   const configTypes = [
     {
@@ -105,18 +108,6 @@ const Page = () => {
     },
   ]
 
-  const links = useMemo(
-    () => configs
-      ? ({
-        openidConfig: `${configs.AUTH_SERVER_URL}/.well-known/openid-configuration`,
-        jwks: `${configs.AUTH_SERVER_URL}/.well-known/jwks.json`,
-        apiSwagger: `${configs.AUTH_SERVER_URL}/api/v1/swagger`,
-        embeddedSwagger: `${configs.AUTH_SERVER_URL}/api/v1/embedded-swagger`,
-      })
-      : null,
-    [configs],
-  )
-
   if (!configs) return <LoadingPage />
 
   return (
@@ -124,72 +115,8 @@ const Page = () => {
       <Breadcrumb
         page={{ label: t('layout.dashboard') }}
       />
-      {links && (
-        <>
-          <PageTitle
-            className='mb-6'
-            title={t('dashboard.links')}
-          />
-          <Table className='break-all'>
-            <TableHeader>
-              <TableRow>
-                <TableHead className={configNameClass}>{t('dashboard.configName')}</TableHead>
-                <TableHead>{t('dashboard.configValue')}</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              <TableRow>
-                <TableCell>OPENID CONFIGURATION</TableCell>
-                <TableCell>
-                  <a
-                    target='_blank'
-                    href={links.openidConfig}
-                    rel='noreferrer'
-                  >
-                    {links.openidConfig}
-                  </a>
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>JWKS</TableCell>
-                <TableCell>
-                  <a
-                    target='_blank'
-                    href={links.jwks}
-                    rel='noreferrer'
-                  >
-                    {links.jwks}
-                  </a>
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>{t('dashboard.apiSwagger')}</TableCell>
-                <TableCell>
-                  <a
-                    target='_blank'
-                    href={links.apiSwagger}
-                    rel='noreferrer'
-                  >
-                    {links.apiSwagger}
-                  </a>
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>{t('dashboard.embeddedSwagger')}</TableCell>
-                <TableCell>
-                  <a
-                    target='_blank'
-                    href={links.embeddedSwagger}
-                    rel='noreferrer'
-                  >
-                    {links.embeddedSwagger}
-                  </a>
-                </TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </>
-      )}
+      {/* [signet] fork addition: system links table (upstream rendered a plain 2-column table here) */}
+      <SystemLinksTable authServerUrl={configs.AUTH_SERVER_URL} />
       {configTypes.map((configType) => (
         <section
           key={configType.name}
@@ -202,6 +129,8 @@ const Page = () => {
             <TableHeader>
               <TableRow>
                 <TableHead className={configNameClass}>{t('dashboard.configName')}</TableHead>
+                {/* [signet] fork addition: description column */}
+                <TableHead className='w-96 max-md:w-52'>{t('dashboard.configDescription')}</TableHead>
                 <TableHead>{t('dashboard.configValue')}</TableHead>
               </TableRow>
             </TableHeader>
@@ -209,6 +138,10 @@ const Page = () => {
               {configType.value.map((configName) => (
                 <TableRow key={configName}>
                   <TableCell>{configName}</TableCell>
+                  {/* [signet] fork addition: description column */}
+                  <TableCell className='text-muted-foreground'>
+                    {configDescriptions[configName] ?? ''}
+                  </TableCell>
                   <TableCell>
                     {typeof configs[configName] === 'boolean' && <ConfigBooleanValue config={configs[configName]} />}
                     {Array.isArray(configs[configName]) && configs[configName].join(', ')}

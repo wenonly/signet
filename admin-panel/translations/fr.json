@@ -45,7 +45,9 @@
     "deleteConfirm": "Êtes-vous sûr de vouloir supprimer {item} ?",
     "deleteConfirmBtn": "Supprimer",
     "cancel": "Annuler",
-    "close": "Fermer"
+    "close": "Fermer",
+    "copy": "Copier l'URL complète",
+    "copied": "Copié"
   },
   "dashboard": {
     "informationConfigs": "Configurations d'information",
@@ -119,8 +121,8 @@
     "smsMfaEnrolled": "MFA par SMS activé",
     "smsMfaVerified": "MFA par SMS vérifié",
     "resetEmailMfaTitle": "Êtes-vous sûr de vouloir réinitialiser l’authentification MFA par e-mail ?",
-	  "resetSmsMfaTitle": "Êtes-vous sûr de vouloir réinitialiser l’authentification MFA par SMS ?",
-	  "resetOtpMfaTitle": "Êtes-vous sûr de vouloir réinitialiser l’authentification MFA par OTP ?",
+    "resetSmsMfaTitle": "Êtes-vous sûr de vouloir réinitialiser l’authentification MFA par SMS ?",
+    "resetOtpMfaTitle": "Êtes-vous sûr de vouloir réinitialiser l’authentification MFA par OTP ?",
     "resetMfa": "Réinitialiser MFA",
     "enrollMfa": "Inscrire MFA",
     "otpMfa": "MFA par OTP",
