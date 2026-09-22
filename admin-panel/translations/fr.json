@@ -12,7 +12,8 @@
     "logs": "Journaux",
     "samlSso": "SAML",
     "dashboard": "Tableau de bord",
-    "account": "Compte"
+    "account": "Compte",
+    "console": "Console d’administration"
   },
   "account": {
     "updateInfo": "Mettre à jour les informations",

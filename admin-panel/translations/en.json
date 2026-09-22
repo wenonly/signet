@@ -12,7 +12,8 @@
     "logs": "Logs",
     "samlSso": "SAML",
     "dashboard": "Dashboard",
-    "account": "Account"
+    "account": "Account",
+    "console": "Admin console"
   },
   "account": {
     "updateInfo": "Update Info",
