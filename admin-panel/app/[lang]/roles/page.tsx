@@ -106,6 +106,10 @@ const Page = () => {
           ))}
         </TableBody>
       </Table>
+      {/* [signet] fork addition: RBAC scope explanation */}
+      <p className='mt-4 text-sm text-muted-foreground'>
+        {t('roles.note')}
+      </p>
     </section>
   )
 }

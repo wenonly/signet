@@ -20,7 +20,18 @@
     "changeEmail": "Changer l'email",
     "resetMfa": "Réinitialiser MFA",
     "managePasskey": "Gérer le passkey",
-    "manageRecoveryCode": "Gérer le code de récupération"
+    "manageRecoveryCode": "Gérer le code de récupération",
+    "updateInfoDesc": "Mettre à jour votre nom et vos informations de base",
+    "changePasswordDesc": "Modifier votre mot de passe de connexion",
+    "changeEmailDesc": "Changer l'e-mail du compte ; un code de vérification est requis",
+    "resetMfaDesc": "Reconfigurer l'authentification multifacteur",
+    "managePasskeyDesc": "Ajouter ou supprimer des clés d’accès",
+    "manageRecoveryCodeDesc": "Régénérer les codes de récupération",
+    "actUpdate": "Mettre à jour",
+    "actChange": "Modifier",
+    "actReset": "Réinitialiser",
+    "actManage": "Gérer",
+    "note": "Ces actions ouvrent les pages de flux sécurisées du serveur d'authentification et reviennent au panneau d'administration une fois terminées."
   },
   "common": {
     "enable": "Activer",
@@ -97,7 +108,8 @@
     "requireOtpMfa": "Exiger MFA par OTP",
     "requireSmsMfa": "Exiger MFA par SMS",
     "allowEmailMfaAsBackup": "Autoriser MFA par e-mail comme backup",
-    "appLevelMfaDescription": "Peu importe les paramètres ci‑dessous, les utilisateurs qui se sont auto‑inscrits à une méthode MFA devront tout de même effectuer cette vérification MFA lorsqu’ils se connectent à cette application."
+    "appLevelMfaDescription": "Peu importe les paramètres ci‑dessous, les utilisateurs qui se sont auto‑inscrits à une méthode MFA devront tout de même effectuer cette vérification MFA lorsqu’ils se connectent à cette application.",
+    "note": "Remarque : les clients spa sont des clients publics PKCE (sans secret ; le frontend détient le client_id). Les clients s2s reçoivent un client_id + client secret pour les jetons de service à service client_credentials."
   },
   "users": {
     "title": "Utilisateurs",
@@ -209,7 +221,8 @@
     "name": "Nom",
     "status": "Statut",
     "new": "Créer un rôle",
-    "users": "Utilisateurs avec ce rôle"
+    "users": "Utilisateurs avec ce rôle",
+    "note": "Remarque : les rôles de ce système ne contiennent pas d'arborescence de permissions. Un rôle est une étiquette globale écrite dans la revendication roles des jetons d'accès/ID ; son sens est interprété par chaque application en aval et par la matrice d'accès du panneau d'administration."
   },
   "saml": {
     "title": "SAML",
