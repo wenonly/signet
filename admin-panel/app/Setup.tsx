@@ -207,10 +207,29 @@ const LayoutSetup = ({ children } : PropsWithChildren) => {
           <SidebarMenu>
             <SidebarMenuItem>
               <div className='flex items-center mt-2'>
-                <img
-                  src='https://valuemelody.com/logo.svg'
-                  className='mr-3 h-6'
-                />
+                {/* [signet] fork branding: inline seal mark (upstream used an external logo image) */}
+                <svg
+                  width='26'
+                  height='26'
+                  viewBox='0 0 32 32'
+                  className='mr-3 shrink-0'
+                >
+                  <rect
+                    width='32'
+                    height='32'
+                    rx='8'
+                    fill='#18181B'
+                  />
+                  <text
+                    x='16'
+                    y='22'
+                    fontSize='17'
+                    fontWeight='700'
+                    fill='#FAFAFA'
+                    textAnchor='middle'
+                    fontFamily='system-ui, sans-serif'
+                  >S</text>
+                </svg>
                 <span className='self-center whitespace-nowrap text-medium font-semibold dark:text-white'>
                   {t('layout.brand')}
                 </span>

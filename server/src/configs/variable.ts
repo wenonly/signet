@@ -71,7 +71,7 @@ export const RequestIPConfig = Object.freeze({
 })
 
 export const systemConfig = Object.freeze({
-  name: 'Melody Auth',
+  name: 'Signet', // [signet] was Melody Auth (page titles and email subjects)
   enableOrgGroup: true,
   emailVerificationCodeExpiresIn: 7200, // must be x * 3600 (in seconds)
   passwordResetCodeExpiresIn: 7200, // must be x * 3600 (in seconds)

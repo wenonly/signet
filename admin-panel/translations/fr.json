@@ -58,7 +58,9 @@
     "cancel": "Annuler",
     "close": "Fermer",
     "copy": "Copier l'URL complète",
-    "copied": "Copié"
+    "copied": "Copié",
+    "yes": "Oui",
+    "no": "Non"
   },
   "dashboard": {
     "informationConfigs": "Configurations d'information",
