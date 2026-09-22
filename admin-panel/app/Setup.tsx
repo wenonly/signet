@@ -32,7 +32,6 @@ import { Button } from 'components/ui/button'
 import { Spinner } from 'components/ui/spinner'
 import {
   configSignal,
-  crumbSignal,
   errorSignal,
 } from 'signals'
 import {
@@ -47,7 +46,7 @@ import { appSlice } from 'stores/app'
 import LoadingPage from 'components/LoadingPage'
 import {
   Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu,
-  SidebarMenuButton, SidebarMenuItem, SidebarProvider, SidebarTrigger,
+  SidebarMenuButton, SidebarMenuItem, SidebarProvider,
 } from 'components/ui/sidebar'
 import {
   DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem,
@@ -152,8 +151,6 @@ const LayoutSetup = ({ children } : PropsWithChildren) => {
   const pathname = useI18nPathname()
 
   const configs = useSignalValue(configSignal)
-  // [signet] fork addition: topbar crumb registered by the active page
-  const crumb = useSignalValue(crumbSignal)
   const showLogs = (
     configs?.ENABLE_SIGN_IN_LOG || configs?.ENABLE_SMS_LOG || configs?.ENABLE_EMAIL_LOG
   ) && accessTool.isAllowedAccess(
@@ -447,51 +444,10 @@ const LayoutSetup = ({ children } : PropsWithChildren) => {
       {
         configs
           ? (
-            // [signet] fork restyle: topbar with user chip + scrollable
-            // zinc-50 content area (upstream rendered a plain padded section)
-            <section className='flex h-svh w-full flex-col overflow-hidden'>
-              <header className='flex h-14 shrink-0 items-center justify-between gap-4 border-b px-8'>
-                <div className='flex min-w-0 items-center gap-3'>
-                  <SidebarTrigger className='md:hidden scale-100' />
-                  {crumb && (
-                    <nav className='flex min-w-0 items-center gap-2 text-[13px] text-muted-foreground/70'>
-                      <span className='shrink-0'>{t('layout.console')}</span>
-                      {crumb.parent && (
-                        <>
-                          <span className='text-muted-foreground/40'>/</span>
-                          <Link
-                            className='cursor-pointer truncate hover:text-foreground'
-                            href={crumb.parent.href}
-                          >
-                            {crumb.parent.label}
-                          </Link>
-                        </>
-                      )}
-                      {crumb.page && (
-                        <>
-                          <span className='text-muted-foreground/40'>/</span>
-                          <span className='truncate'>{crumb.page}</span>
-                        </>
-                      )}
-                    </nav>
-                  )}
-                </div>
-                <div className='flex shrink-0 items-center gap-2'>
-                  <div className='flex size-7 items-center justify-center rounded-full bg-muted text-xs text-muted-foreground'>
-                    {(userInfo?.firstName || userInfo?.lastName || userInfo?.email || '?')
-                      .charAt(0)
-                      .toUpperCase()}
-                  </div>
-                  <span className='text-xs text-muted-foreground'>
-                    {userInfo?.firstName || userInfo?.lastName
-                      ? `${userInfo?.firstName ?? ''} ${userInfo?.lastName ?? ''}`.trim()
-                      : userInfo?.email}
-                  </span>
-                </div>
-              </header>
-              <main className='grow overflow-y-auto bg-zinc-50 p-8'>
-                {children}
-              </main>
+            // [signet] fork restyle: scrollable zinc-50 content area
+            // (upstream rendered a plain padded section)
+            <section className='h-svh w-full overflow-y-auto bg-zinc-50 p-8'>
+              {children}
             </section>
           )
           : (

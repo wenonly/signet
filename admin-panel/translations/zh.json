@@ -12,8 +12,7 @@
     "logs": "日志",
     "samlSso": "SAML",
     "dashboard": "概览",
-    "account": "账户",
-    "console": "管理后台"
+    "account": "账户"
   },
   "account": {
     "updateInfo": "更新信息",

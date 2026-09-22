@@ -12,9 +12,6 @@ const useSignalValue = (signal: Signal) => {
         setValue(newValue)
       })
 
-      // [signet] fork fix: pick up writes that happened before subscribing
-      setValue(signal.value)
-
       return () => {
         unsubscribe()
       }

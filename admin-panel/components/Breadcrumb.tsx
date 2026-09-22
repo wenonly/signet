@@ -1,9 +1,15 @@
 import classNames from 'classnames'
-import { useEffect } from 'react'
-import { crumbSignal } from 'signals'
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbSeparator,
+} from 'components/ui/breadcrumb'
+import { useRouter } from 'i18n/navigation'
+import { SidebarTrigger } from 'components/ui/sidebar'
 
-// [signet] fork restyle: the crumb line lives in the shell topbar (registered
-// here via crumbSignal); only the page title and action stay in the content
+// [signet] fork restyle: small zinc crumb line above the 24px page title
 const ShadcnBreadcrumb = ({
   parent,
   page,
@@ -20,26 +26,42 @@ const ShadcnBreadcrumb = ({
   action?: React.ReactNode;
   className?: string;
 }) => {
-  useEffect(
-    () => {
-      crumbSignal.value = {
-        parent: parent
-          ? {
-            label: parent.label, href: parent.href,
-          }
-          : undefined,
-        page: page?.label,
-      }
-    },
-    [parent?.label, parent?.href, page?.label],
-  )
-
+  const router = useRouter()
   return (
     <section
       className={classNames(
         'flex flex-col gap-2 mb-6',
         className,
       )}>
+      <div className='flex items-center gap-3'>
+        <SidebarTrigger
+          variant='outline'
+          className='sm:hidden scale-100' />
+        <Breadcrumb>
+          <BreadcrumbList className='text-[13px] text-muted-foreground/70'>
+            {parent && (
+              <>
+                <BreadcrumbItem className='cursor-pointer'>
+                  <BreadcrumbLink
+                    onClick={() => {
+                      router.push(parent.href)
+                    }}
+                  >
+                    {parent.label}
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+
+            {page && (
+              <BreadcrumbItem>
+                {page.label}
+              </BreadcrumbItem>
+            )}
+          </BreadcrumbList>
+        </Breadcrumb>
+      </div>
       {page && (
         <div className='flex items-center justify-between gap-4'>
           <h1 className='text-2xl font-bold tracking-tight leading-none'>
