@@ -5,15 +5,15 @@ import {
 export enum DefaultBranding {
   FontFamily = 'Inter',
   FontUrl = 'https://fonts.googleapis.com/css2?family=Inter:wght@400..600&display=swap',
-  LayoutColor = 'lightgray',
-  LabelColor = 'black',
-  PrimaryButtonColor = 'white',
-  PrimaryButtonLabelColor = 'black',
-  PrimaryButtonBorderColor = 'lightgray',
-  SecondaryButtonColor = 'white',
-  SecondaryButtonLabelColor = 'black',
-  SecondaryButtonBorderColor = 'white',
-  CriticalIndicatorColor = '#e00',
+  LayoutColor = '#F4F4F5',
+  LabelColor = '#18181B',
+  PrimaryButtonColor = '#18181B',
+  PrimaryButtonLabelColor = '#FAFAFA',
+  PrimaryButtonBorderColor = '#18181B',
+  SecondaryButtonColor = '#FFFFFF',
+  SecondaryButtonLabelColor = '#18181B',
+  SecondaryButtonBorderColor = '#E4E4E7',
+  CriticalIndicatorColor = '#DC2626',
 }
 
 export enum DefaultEnvironment {

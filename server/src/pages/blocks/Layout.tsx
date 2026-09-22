@@ -1,6 +1,6 @@
 import { typeConfig } from 'configs'
+import { systemConfig } from 'configs/variable'
 import { LocaleSelector } from 'pages/components'
-import { layout } from 'pages/tools/locale'
 
 export interface LayoutProps {
   children: any;
@@ -13,37 +13,31 @@ export interface LayoutProps {
 const Layout = ({
   children, locale, locales, logoUrl, onSwitchLocale,
 }: LayoutProps) => (
-  <main className='flex flex-col items-center justify-center w-full h-screen bg-layoutColor text-labelColor'>
-    <section className='flex flex-col justify-center items-center bg-white box-shadow rounded-lg'>
-      <section className='flex flex-col items-center gap-4 max-h-[80vh] p-8 overflow-y-auto overflow-x-hidden'>
-        <header className='relative flex w-full justify-center items-center'>
+  <main className='flex flex-col items-center justify-center w-full min-h-screen bg-layoutColor text-labelColor px-4 py-10'>
+    <section className='w-[420px] max-w-full bg-white rounded-[14px] border border-[#E4E4E7] shadow-[0_4px_16px_rgba(0,0,0,0.07)]'>
+      <section className='flex flex-col gap-5 max-h-[80vh] p-9 overflow-y-auto overflow-x-hidden'>
+        <header className='flex items-center gap-2.5'>
           <img
-            className='w-10'
+            className='w-[34px] h-[34px]'
             src={logoUrl}
             alt='Logo'
           />
-          {locales.length > 1 && (
-            <div className='absolute right-0'>
-              <LocaleSelector
-                locale={locale}
-                locales={locales}
-                onChange={onSwitchLocale}
-              />
-            </div>
-          )}
+          <span className='text-[17px] font-semibold'>{systemConfig.name}</span>
         </header>
-        <section className='flex flex-col justify-center items-center gap-4'>
+        <section className='flex flex-col items-center gap-4'>
           {children}
         </section>
-        <a
-          target='__blank'
-          href='https://github.com/ValueMelody/melody-auth'
-          className='text-sm mt-2'
-        >
-          {layout.poweredByAuth[locale]}
-        </a>
       </section>
     </section>
+    {locales.length > 1 && (
+      <div className='mt-7 text-[12px] text-[#A1A1AA]'>
+        <LocaleSelector
+          locale={locale}
+          locales={locales}
+          onChange={onSwitchLocale}
+        />
+      </div>
+    )}
   </main>
 )
 

@@ -13,7 +13,7 @@ const SecondaryButton = ({
   return (
     <button
       type='button'
-      className='max-w-(--text-width) flex items-center justify-center cursor-pointer text-base font-medium rounded-lg text-center border border-secondaryButtonBorderColor text-secondaryButtonLabelColor bg-secondaryButtonColor'
+      className='h-10 px-5 flex items-center justify-center cursor-pointer text-sm font-medium rounded-lg text-center border border-secondaryButtonBorderColor text-secondaryButtonLabelColor bg-secondaryButtonColor'
       onClick={onClick}
       disabled={disabled || isLoading}
     >

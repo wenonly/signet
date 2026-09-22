@@ -5,7 +5,7 @@ const FieldLabel = ({
 }: FieldLabelProps) => {
   return (
     <label
-      className='font-medium w-(--text-width)'
+      className='font-medium w-(--text-width) text-[13px]'
       for={`form-${fieldName}`}
     >
       {label}

@@ -14,7 +14,7 @@ const PrimaryButton = ({
 }: PrimaryButtonProps) => {
   return (
     <button
-      className={`flex items-center justify-center cursor-pointer p-2 bg-primaryButtonColor text-primaryButtonLabelColor border border-primaryButtonBorderColor rounded-lg font-medium text-base ${className ?? ''}`}
+      className={`flex items-center justify-center cursor-pointer h-[42px] bg-primaryButtonColor text-primaryButtonLabelColor border border-primaryButtonBorderColor rounded-lg font-medium text-sm w-(--text-width) ${className ?? ''}`}
       type={type}
       disabled={disabled || isLoading}
       onClick={onClick}

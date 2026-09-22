@@ -200,9 +200,7 @@ const LayoutSetup = ({ children } : PropsWithChildren) => {
 
   return (
     <>
-      <Sidebar
-        collapsible='icon'
-        variant='floating'>
+      <Sidebar collapsible='icon'>
         <SidebarHeader>
           <SidebarMenu>
             <SidebarMenuItem>
